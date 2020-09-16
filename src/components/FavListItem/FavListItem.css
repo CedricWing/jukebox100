@@ -1,0 +1,27 @@
+.fav-item-cont {
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(165, 161, 226, 0.2);
+  border-radius: 10px;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+.fav-item-cont:hover {
+  background-color: rgba(165, 161, 226, 0.4);
+}
+.fav-item-sub-cont {
+  flex: 1;
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.fav-item-btn {
+  line-height: 0.5 !important;
+  background-color: #ff2281 !important;
+}
+.fav-item-btn:hover {
+  background-color: #ff22828f !important;
+}

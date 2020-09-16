@@ -1,0 +1,39 @@
+.navbar {
+  transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+  background-color: #101222 !important;
+}
+
+.navbar-default {
+  border-bottom: transparent solid 4px;
+  border-radius: 2px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.navbar-default:hover {
+  border-bottom: #ff2281 solid 4px;
+  border-radius: 2px;
+}
+
+.navbar-active {
+  border-bottom: #ff2281 solid 4px;
+  border-radius: 2px;
+}
+
+.top-nav-collapse {
+  background: #101222 !important;
+}
+
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #101222 !important;
+  }
+}
+.nav-bar-icon {
+  flex-grow: 0 !important;
+}
+
+.icon {
+  width: 35px;
+  height: 25px;
+}

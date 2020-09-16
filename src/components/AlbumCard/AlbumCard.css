@@ -1,0 +1,29 @@
+.card {
+  background-color: rgba(165, 161, 226, 0.2);
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  width: 210px;
+  height: 300px;
+  margin-bottom: 0.3rem;
+}
+.card:hover {
+  background-color: rgba(165, 161, 226, 0.4);
+}
+
+.text-chop3 {
+  text-align: center;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.text-chop2 {
+  text-align: center;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

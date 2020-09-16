@@ -1,0 +1,26 @@
+.profile-name {
+  color: #ff2281;
+}
+
+.btn-album-profile {
+  border-radius: 20px;
+  background: #ff2281 !important;
+}
+.btn-album-profile:hover {
+  background-color: #ff22828f !important;
+}
+
+.btn-profile-favourite {
+  cursor: pointer;
+  margin-top: 0.3rem;
+  padding-right: 0.5rem;
+}
+
+.text-chop1 {
+  text-align: center;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

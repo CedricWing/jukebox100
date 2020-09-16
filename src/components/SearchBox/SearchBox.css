@@ -1,0 +1,12 @@
+.active-search-0 input[type="text"]:focus:not([readonly]) {
+  border: 1px solid #ff2281;
+  box-shadow: 0 0 0 1px #ff2281;
+  color: white;
+  background-color: rgba(165, 161, 226, 0.2) !important;
+}
+.active-search-1 input[type="text"] {
+  border: 1px solid #ff2281;
+  box-shadow: 0 0 0 1px #ff2281;
+  color: white;
+  background-color: rgba(165, 161, 226, 0.2) !important;
+}

@@ -1,0 +1,21 @@
+.album-frame-buttons {
+  padding-right: 0px;
+  padding-left: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn[class*="btn-outline-"] {
+  background-color: rgba(165, 161, 226, 0.2) !important;
+  border: 2px solid #ff2281 !important;
+  color: #ff2281 !important;
+  font-weight: 700;
+}
+
+.btn[class*="btn-outline-"]:hover {
+  background-color: rgba(165, 161, 226, 0.4) !important;
+  font-weight: 700;
+}
+.btn[class*="btn-outline-"]:disabled {
+  border: 2px solid grey !important;
+}
