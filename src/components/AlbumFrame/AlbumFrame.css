@@ -19,3 +19,9 @@
 .btn[class*="btn-outline-"]:disabled {
   border: 2px solid grey !important;
 }
+
+.album-frame-spinner {
+  position: relative;
+  left: 50%;
+  top: 50%;
+}

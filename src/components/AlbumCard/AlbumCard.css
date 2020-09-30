@@ -27,3 +27,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+
+.album-card-spinner {
+  height: 140px;
+}

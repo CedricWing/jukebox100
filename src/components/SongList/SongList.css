@@ -28,3 +28,12 @@
   color: green;
   font-size: larger !important;
 }
+
+.modal-header .close {
+  color: rgb(255, 255, 255, 1);
+}
+
+.modal-spinner {
+  position: absolute;
+  left: 50%;
+}

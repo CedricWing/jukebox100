@@ -8,7 +8,7 @@ class FavouriteView extends Component {
     return (
       <div className="bg">
         <div className="view scrollbar scrollbar-primary">
-          <MDBMask className="gradient"> </MDBMask>
+          <MDBMask className="gradient"/> 
           <MDBAnimation type="slideInDown" delay=".3s">
             <MDBCol
               style={{ paddingTop: "3rem" }}
@@ -33,7 +33,7 @@ class FavouriteView extends Component {
                     category={album["category"]["attributes"]["label"]}
                     price={album["im:price"]["label"]}
                     removeFavItem={this.props.removeFavItem}
-                  ></FavListItem>
+                  />
                 ))
               )}
             </MDBCol>

@@ -1,33 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./FavButton.css";
 import { MDBIcon } from "mdbreact";
-class FavButton extends React.Component {
-  constructor(props) {
-    super(props);
+import { FavouritesContext } from "../../utils/Cookies/FavouritesContext";
 
-    this.onFavouriteClickStub = this.onFavouriteClickStub.bind(this);
-  }
-  onFavouriteClickStub() {
-    if (window.favourites.has(this.props.id)) {
-      window.favourites.del(this.props.id);
+const FavButton = (props) => {
+  const { hasFav, setFav, delFav } = useContext(FavouritesContext);
+
+  const onFavouriteClickStub = () => {
+    if (hasFav(props.id)) {
+      delFav(props.id);
     } else {
-      window.favourites.set(this.props.id);
+      setFav(props.id);
     }
-    this.props.onFavouriteClick();
-  }
+    props.onFavouriteClick();
+  };
 
-  render() {
-    return (
-      <div>
-        <MDBIcon
-          onClick={this.onFavouriteClickStub}
-          className={"btn-heart " + this.props.size}
-          far={!window.favourites.has(this.props.id)}
-          icon="heart"
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <MDBIcon
+        onClick={onFavouriteClickStub}
+        className={"btn-heart " + props.size}
+        far={!hasFav(props.id)}
+        icon="heart"
+      />
+    </div>
+  );
+};
 
 export default FavButton;

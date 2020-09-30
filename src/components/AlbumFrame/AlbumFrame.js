@@ -1,8 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import AlbumCard from "../AlbumCard/AlbumCard";
 import { MDBCol, MDBBtn, MDBRow } from "mdbreact";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import "./AlbumFrame.css";
-class AlbumFrame extends React.Component {
+
+const max_albums = parseInt(process.env.REACT_APP_MAX_NUM_ALBUM);
+class AlbumFrame extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,35 +35,33 @@ class AlbumFrame extends React.Component {
   }
   render() {
     //Carousel showing albums have to use different index when search is active
-    var rowIndex = this.props.isSearchActive
+    const rowIndex = this.props.isSearchActive
       ? this.props.activeSearchIndex
       : this.state.activeCarouselIndex;
-    var isArrayLoaded = this.props.albumList[rowIndex];
+    const albumList = this.props.albumList;
 
-    return (
+    return !(albumList && albumList[rowIndex]) ? (
+      <LoadingSpinner loaded={false} containerStyle="album-frame-spinner" />
+    ) : (
       <div>
         <MDBRow className="d-flex flex-row justify-content-center">
-          {!isArrayLoaded ? (
-            <div></div>
-          ) : (
-            this.props.albumList[rowIndex].map((album, index) =>
-              album ? (
-                <AlbumCard
-                  key={rowIndex * 6 + index}
-                  rank={album["rank"]}
-                  title={album["title"]}
-                  artist={album["artist"]}
-                  image={album["image"]}
-                  id={album["id"]}
-                  setActiveAlbumIndex={this.props.setActiveAlbumIndex}
-                  onFavouriteClick={this.props.onFavouriteClick}
-                ></AlbumCard>
-              ) : (
-                <div
-                  key={rowIndex * 6 + index}
-                  style={{ width: "220px", height: "300px" }}
-                ></div>
-              )
+          {albumList[rowIndex].map((album, index) =>
+            album ? (
+              <AlbumCard
+                key={rowIndex * max_albums + index}
+                rank={album["rank"]}
+                title={album["title"]}
+                artist={album["artist"]}
+                image={album["image"]}
+                id={album["id"]}
+                setActiveAlbumIndex={this.props.setActiveAlbumIndex}
+                onFavouriteClick={this.props.onFavouriteClick}
+              />
+            ) : (
+              <div
+                key={rowIndex * max_albums + index}
+                style={{ width: "220px", height: "300px" }}
+              />
             )
           )}
         </MDBRow>
@@ -75,7 +76,7 @@ class AlbumFrame extends React.Component {
           </MDBBtn>
           <MDBBtn
             onClick={this.onNextBtnPressed}
-            disabled={rowIndex >= this.props.albumList.length - 1}
+            disabled={rowIndex >= albumList.length - 1}
             outline
             size="sm "
           >

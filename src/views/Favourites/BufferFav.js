@@ -1,37 +1,26 @@
-import React, { Component } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import DataService from "../../utils/Service/DataService";
+import { FavouritesContext } from "../../utils/Cookies/FavouritesContext";
 import FavouriteView from "./Favourite";
-class BufferFav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { favList: [] };
-    this.removeFavItem = this.removeFavItem.bind(this);
-    this.setFavList = this.setFavList.bind(this);
-  }
 
-  componentDidMount() {
-    this.setFavList();
-  }
-  setFavList = () => {
-    var idList = window.favourites.get();
-    var favList = DataService.filterAlbums(idList, this.props.feed);
-    this.setState({
-      favList: favList,
-    });
-  };
-  removeFavItem = (id) => {
-    window.favourites.del(id);
-    this.setFavList();
+const BufferFav = (props) => {
+  const { data, delFav } = useContext(FavouritesContext);
+  const [favList, setFavList] = useState([]);
+
+  const removeFavItem = (id) => {
+    delFav(id);
+    const idList = data;
+    const favList = DataService.filterFavouriteAlbums(idList, props.feed);
+    setFavList(favList);
   };
 
-  render() {
-    return (
-      <FavouriteView
-        removeFavItem={this.removeFavItem}
-        favList={this.state.favList}
-      ></FavouriteView>
-    );
-  }
-}
+  useEffect(() => {
+    const idList = data;
+    const favList = DataService.filterFavouriteAlbums(idList, props.feed);
+    setFavList(favList);
+  }, [data, props.feed]);
+
+  return <FavouriteView removeFavItem={removeFavItem} favList={favList} />;
+};
 
 export default BufferFav;

@@ -1,9 +1,22 @@
-import React from "react";
-import "./AlbumCard.css";
+import React, { Component } from "react";
 import { MDBCard, MDBCardBody, MDBCol, MDBRow } from "mdbreact";
 import FavButon from "../FavButton/FavButton";
-class AlbumCard extends React.Component {
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import "./AlbumCard.css";
+
+class AlbumCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageLoaded: false,
+    };
+  }
+  handleImageLoaded() {
+    this.setState({ imageLoaded: true });
+  }
+
   render() {
+    const imageStyle = !this.state.imageLoaded ? { display: "none" } : {};
     return (
       <div
         style={{ cursor: "pointer" }}
@@ -17,15 +30,25 @@ class AlbumCard extends React.Component {
               <div className="text-white">#{this.props.rank}</div>
               <FavButon
                 onFavouriteClick={this.props.onFavouriteClick}
-                size={"fa-lg"}
+                size="fa-lg"
                 id={this.props.id}
                 image={this.props.image}
                 title={this.props.title}
                 artist={this.props.artist}
-              ></FavButon>
+              />
             </MDBRow>
-            <MDBCol>
-              <img className="img-fluid " alt="" src={this.props.image} />
+            <MDBCol className="d-flex flex-column align-items-center">
+              <LoadingSpinner
+                loaded={this.state.imageLoaded}
+                containerStyle="album-card-spinner"
+              />
+              <img
+                className="img-fluid "
+                alt=""
+                src={this.props.image}
+                style={imageStyle}
+                onLoad={this.handleImageLoaded.bind(this)}
+              />
             </MDBCol>
             <div className="white-text text-chop3">{this.props.title}</div>
             <div className="grey-text  text-chop2">{this.props.artist}</div>

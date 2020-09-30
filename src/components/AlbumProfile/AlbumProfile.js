@@ -1,24 +1,43 @@
-import React from "react";
+import React, { Component } from "react";
 import { MDBContainer, MDBRow, MDBBtn } from "mdbreact";
-import "./AlbumProfile.css";
 import FavButon from "../FavButton/FavButton";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import "./AlbumProfile.css";
 
-class AlbumProfile extends React.Component {
+class AlbumProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageLoaded: false,
+    };
+  }
+  handleImageLoaded() {
+    this.setState({ imageLoaded: true });
+  }
   render() {
-    return (
+    const imageStyle = !this.state.imageLoaded ? { display: "none" } : {};
+    return !this.props.activeAlbum ? (
+      <LoadingSpinner loaded={false} containerStyle="album-profile-loading" />
+    ) : (
       <MDBContainer className="d-flex flex-column justify-content-center align-items-center">
+        <LoadingSpinner
+          loaded={this.state.imageLoaded}
+          containerStyle="album-profile-spinner"
+        />
         <img
           className="img-fluid img-responsive"
           alt=""
           src={this.props.activeAlbum["im:image"][2]["label"]}
+          style={imageStyle}
+          onLoad={this.handleImageLoaded.bind(this)}
         />
         <MDBRow>
           <div className="btn-profile-favourite">
             <FavButon
               onFavouriteClick={this.props.onFavouriteClick}
-              size={"fa-2x"}
+              size="fa-2x"
               id={this.props.activeAlbum["id"]["attributes"]["im:id"]}
-            ></FavButon>
+            />
           </div>
           <MDBBtn
             className="btn-album-profile"

@@ -8,7 +8,7 @@ import standardHandle from "../../utils/API/StandardHandle";
 import { MDBRow, MDBMask, MDBContainer, MDBCol, MDBAnimation } from "mdbreact";
 import "../Views.css";
 
-class HomeView extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +18,6 @@ class HomeView extends Component {
       activeSearchIndex: 0,
       activeAlbumTracks: [],
     };
-    this.toggleModal = this.toggleModal.bind(this);
-    this.setActiveAlbumIndex = this.setActiveAlbumIndex.bind(this);
-    this.setSearchActive = this.setSearchActive.bind(this);
-    this.onFavouriteClick = this.onFavouriteClick.bind(this);
-    this.setActiveSearchIndex = this.setActiveSearchIndex.bind(this);
   }
 
   setSearchActive = (flag) => {
@@ -69,8 +64,11 @@ class HomeView extends Component {
                   .getSpotifyAlbumTracks(data["albums"]["items"][0]["id"])
                   .then(async (response) => {
                     const successCallback = async () => {
-                      var data = await response.json();
-                      this.setState({ activeAlbumTracks: data["items"] });
+                      const data = await response.json();
+                      this.setState({
+                        activeAlbumTracks: data["items"],
+                        modal: true,
+                      });
                     };
                     const failureCallback = async () => {
                       console.log(
@@ -79,6 +77,8 @@ class HomeView extends Component {
                     };
                     standardHandle(response, successCallback, failureCallback);
                   });
+              } else {
+                this.setState({ activeAlbumTracks: [], modal: true });
               }
             });
           };
@@ -87,9 +87,6 @@ class HomeView extends Component {
           };
           standardHandle(response, successCallback, failureCallback);
         });
-      this.setState({
-        modal: true,
-      });
     } else {
       this.setState({
         modal: false,
@@ -102,8 +99,7 @@ class HomeView extends Component {
     return (
       <div className="bg">
         <div className="view scrollbar scrollbar-primary">
-          <MDBMask className="gradient"> </MDBMask>
-
+          <MDBMask className="gradient" />
           <MDBCol>
             <MDBContainer
               fluid
@@ -115,7 +111,7 @@ class HomeView extends Component {
                   activeAlbum={this.props.feed[this.state.activeAlbumIndex]}
                   toggleModal={this.toggleModal}
                   onFavouriteClick={this.onFavouriteClick}
-                ></AlbumProfile>
+                />
               </MDBAnimation>
             </MDBContainer>
             <MDBContainer fluid className="mt-2 home-container">
@@ -128,7 +124,7 @@ class HomeView extends Component {
                     setSearchActive={this.setSearchActive}
                     reloadData={this.props.reloadData}
                     setActiveSearchIndex={this.setActiveSearchIndex}
-                  ></SearchBox>
+                  />
                 </MDBRow>
                 <AlbumFrame
                   setActiveAlbumIndex={this.setActiveAlbumIndex}
@@ -137,7 +133,7 @@ class HomeView extends Component {
                   onFavouriteClick={this.onFavouriteClick}
                   setActiveSearchIndex={this.setActiveSearchIndex}
                   activeSearchIndex={this.state.activeSearchIndex}
-                ></AlbumFrame>
+                />
               </MDBAnimation>
             </MDBContainer>
           </MDBCol>
@@ -146,11 +142,11 @@ class HomeView extends Component {
             toggle={this.toggleModal}
             activeAlbumTracks={this.state.activeAlbumTracks}
             activeAlbum={this.props.feed[this.state.activeAlbumIndex]}
-          ></SongList>
+          />
         </div>
       </div>
     );
   }
 }
 
-export default HomeView;
+export default Home;

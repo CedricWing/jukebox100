@@ -1,20 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import { MDBCol } from "mdbreact";
 import DataService from "../../utils/Service/DataService";
 
 import "./SearchBox.css";
 
-class SearchBox extends React.Component {
+class SearchBox extends Component {
   constructor(props) {
     super(props);
     this.state = { searchValue: "" };
-    this.onSearchInputChanged = this.onSearchInputChanged.bind(this);
   }
   //Search query is debounced for optimal performance
   onSearchInputChanged = (event) => {
-    var searchText = event.target.value;
+    const searchText = event.target.value;
     this.setState({ searchValue: searchText });
-    this.props.reloadData(searchText);
+    DataService.debounce(this.props.reloadData, 350, searchText);
     if (searchText === "") {
       this.props.setActiveSearchIndex(0);
       DataService.debounce(this.props.setSearchActive, 450, false);

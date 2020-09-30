@@ -1,18 +1,37 @@
 import React, { Component } from "react";
 import { MDBContainer, MDBBtn } from "mdbreact";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+
 import "./FavListItem.css";
 class FavListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageLoaded: false,
+    };
+  }
+  handleImageLoaded() {
+    this.setState({ imageLoaded: true });
+  }
   render() {
+    const imageStyle = !this.state.imageLoaded ? { display: "none" } : {};
+
     return (
       <MDBContainer style={{ paddingTop: "0.5rem" }}>
         <div className="fav-item-cont">
           <strong style={{ paddingRight: "1rem" }} className="text-white">
             {this.props.index}
           </strong>
+          <LoadingSpinner
+            loaded={this.state.imageLoaded}
+            containerStyle="thumbnail-spinner"
+          />
           <img
             className="img-fluid align-self-start"
             alt=""
             src={this.props.image}
+            style={imageStyle}
+            onLoad={this.handleImageLoaded.bind(this)}
           />
           <div className="fav-item-sub-cont">
             <strong className="text-white">{this.props.title}</strong>

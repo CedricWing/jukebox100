@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Component} from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DataService from "./utils/Service/DataService";
 import standardHandle from "./utils/API/StandardHandle";
@@ -7,7 +7,7 @@ import NavBar from "./components/NavBar/NavBar";
 import BufferHome from "./views/Home/BufferHome";
 import BufferFav from "./views/Favourites/BufferFav";
 import Loading from "./views/Loading/Loading";
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = { isLoaded: false, feed: [] };
@@ -23,9 +23,9 @@ class App extends React.Component {
     //1. iTunes100 rss
     commonAPIClient.getiTunesTop100Albums().then(async (response) => {
       const successCallback = async () => {
-        var data = await response.json();
-        var feed = data["feed"];
-        var formattedFeed = DataService.appendRank(feed["entry"]);
+        const data = await response.json();
+        const feed = data["feed"];
+        const formattedFeed = DataService.appendRank(feed["entry"]);
         this.setState({
           feed: formattedFeed,
         });
@@ -39,7 +39,7 @@ class App extends React.Component {
     //2. Spotify
     commonAPIClient.getSpotifyAccessToken().then(async (response) => {
       const successCallback = async () => {
-        var data = await response.json();
+        const data = await response.json();
         window.token = data;
       };
       const failureCallback = async () => {
@@ -54,15 +54,15 @@ class App extends React.Component {
       <Loading />
     ) : (
       <Router>
-        <NavBar></NavBar>
+        <NavBar/>
         <Switch>
           <Route
             exact
-            path={"/"}
+            path="/"
             render={() => <BufferHome feed={this.state.feed} />}
           />
           <Route
-            path={"/favourites"}
+            path="/favourites"
             render={() => <BufferFav feed={this.state.feed} />}
           />
         </Switch>

@@ -1,4 +1,5 @@
 //Helper functional component that is tasked for data manipulation
+const max_albums = parseInt(process.env.REACT_APP_MAX_NUM_ALBUM);
 const DataService = {
   appendRank(data) {
     return data.map(function (album, index) {
@@ -8,10 +9,10 @@ const DataService = {
 
   formatFeedData(data) {
     if (data.length === 0) {
-      return [new Array(6).fill(null)];
+      return [new Array(max_albums).fill(null)];
     }
-    var store = [];
-    var res = [];
+    let store = [];
+    let res = [];
     data.forEach((album) => {
       store.push({
         title: album["im:name"]["label"],
@@ -22,19 +23,19 @@ const DataService = {
       });
     });
 
-    for (var i = 0; i < store.length; i += 6) {
-      var arr = store.slice(i, i + 6);
+    for (let i = 0; i < store.length; i += max_albums) {
+      let arr = store.slice(i, i + max_albums);
       //Pad with null
-      for (var j = arr.length; j < 6; j++) arr.push(null);
+      for (let j = arr.length; j < max_albums; j++) arr.push(null);
       res.push(arr);
     }
     return res;
   },
 
   filterSearchData(data, searchValue) {
-    var filteredData = data.filter(function (album) {
-      var albumName = album["im:name"]["label"].toLowerCase();
-      var artistName = album["im:artist"]["label"].toLowerCase();
+    let filteredData = data.filter(function (album) {
+      const albumName = album["im:name"]["label"].toLowerCase();
+      const artistName = album["im:artist"]["label"].toLowerCase();
       return (
         albumName.includes(searchValue) || artistName.includes(searchValue)
       );
@@ -42,9 +43,9 @@ const DataService = {
     return filteredData;
   },
 
-  filterAlbums(favList, feed) {
-    var res = feed.filter(function (album) {
-      var albumID = album["id"]["attributes"]["im:id"];
+  filterFavouriteAlbums(favList, feed) {
+    let res = feed.filter(function (album) {
+      const albumID = album["id"]["attributes"]["im:id"];
       return favList.includes(albumID);
     });
     return res;

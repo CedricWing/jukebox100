@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import {
   MDBNavbar,
   MDBNavbarToggler,
@@ -8,30 +8,31 @@ import {
 import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 
-class NavBar extends React.Component {
+class NavBar extends Component {
   state = {
-    collapseID: "",
+    collapseFlag: false,
   };
-  toggleCollapse = (collapseID) => () =>
+  toggleCollapse = (collapseFlag) => () =>
     this.setState((prevState) => ({
-      collapseID: prevState.collapseID !== collapseID ? collapseID : "",
+      collapseFlag:
+        prevState.collapseFlag !== collapseFlag ? collapseFlag : false,
     }));
   render() {
     const overlay = (
       <div
         id="sidenav-overlay"
         style={{ backgroundColor: "transparent" }}
-        onClick={this.toggleCollapse("navbarCollapse")}
+        onClick={this.toggleCollapse(true)}
       />
     );
 
     return (
       <div>
         <MDBNavbar dark expand="md" fixed="top">
+          <MDBNavbarToggler onClick={this.toggleCollapse(true)} />
           <MDBCollapse
-            className="nav-bar-icon"
             id="navbarCollapse"
-            isOpen={this.state.collapseID}
+            isOpen={this.state.collapseFlag}
             navbar
           >
             <img
@@ -40,14 +41,7 @@ class NavBar extends React.Component {
               alt=""
             />
             <strong className="text-white">JukeBox100</strong>
-          </MDBCollapse>
-          <MDBContainer>
-            <MDBNavbarToggler onClick={this.toggleCollapse("navbarCollapse")} />
-            <MDBCollapse
-              id="navbarCollapse"
-              isOpen={this.state.collapseID}
-              navbar
-            >
+            <MDBContainer className="nav-bar-items">
               <NavLink
                 exact
                 to="/"
@@ -63,10 +57,10 @@ class NavBar extends React.Component {
               >
                 <strong className="white-text">Favourites</strong>
               </NavLink>
-            </MDBCollapse>
-          </MDBContainer>
+            </MDBContainer>
+          </MDBCollapse>
         </MDBNavbar>
-        {this.state.collapseID && overlay}
+        {this.state.collapseFlag && overlay}
       </div>
     );
   }

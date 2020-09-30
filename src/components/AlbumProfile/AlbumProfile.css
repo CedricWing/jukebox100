@@ -24,3 +24,10 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+.album-profile-loading {
+  height: 373px;
+}
+
+.album-profile-spinner {
+  height: 170px;
+}

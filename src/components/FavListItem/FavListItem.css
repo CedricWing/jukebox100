@@ -25,3 +25,7 @@
 .fav-item-btn:hover {
   background-color: #ff22828f !important;
 }
+.thumbnail-spinner {
+  height: 60px;
+  width: 60px;
+}

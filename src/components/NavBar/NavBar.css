@@ -29,8 +29,8 @@
     background: #101222 !important;
   }
 }
-.nav-bar-icon {
-  flex-grow: 0 !important;
+.nav-bar-items {
+  justify-content: left !important;
 }
 
 .icon {
