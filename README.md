@@ -23,6 +23,12 @@ Create production build:
 yarn build OR npm react-scripts build
 ```
 
+To run Unit tests:
+
+```
+yarn test
+```
+
 # Technologies used
 
 - [MDBoostrap](https://mdbootstrap.com/)
